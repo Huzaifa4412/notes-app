@@ -6,7 +6,7 @@ import { useNotes } from '@/app/provider/notes-provider'
 import { Note } from '@/types/notes'
 
 const CardContainer = () => {
-    const containerRef = useRef<HTMLDivElement>(null)
+    const containerRef = useRef<HTMLDivElement | null>(null)
     const my_notes = useNotes()
     if (!my_notes) {
         throw new Error('Component must be wrapped within NotesProvider');
@@ -29,7 +29,7 @@ const CardContainer = () => {
                     id={item.id}
                     text={item.text}
                     color={item.color}
-                    containerRef={containerRef}
+                    containerRef={containerRef as React.RefObject<HTMLDivElement>}
                 />
             ))}
         </div>

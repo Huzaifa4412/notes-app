@@ -5,16 +5,16 @@ import { ScrollArea } from "./ui/scroll-area"
 import { useNotes } from "@/app/provider/notes-provider"
 import { motion } from "motion/react"
 interface CardProps {
-    color: string
-    id: string
+    color: string;
+    id: string;
     text: {
-        heading: string
-        note: string
-    }
-    ref: React.RefObject<HTMLDivElement>
+        heading: string;
+        note: string;
+    };
+    containerRef?: React.RefObject<HTMLDivElement>;  // Add this line
 }
 
-const Card: React.FC<CardProps> = ({ color, id, text, ref }) => {
+const Card: React.FC<CardProps> = ({ color, id, text, containerRef }) => {
     const notesContext = useNotes()
     if (!notesContext) {
         throw new Error("Component must be wrapped within NotesProvider")
@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({ color, id, text, ref }) => {
     const [note, setNote] = useState(text.note)
 
     return (
-        <motion.div drag dragConstraints={ref} dragElastic={0.12}
+        <motion.div drag dragConstraints={containerRef} dragElastic={0.12}
             dragMomentum={true}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
             whileDrag={{ scale: 1.05, zIndex: 10, cursor: 'grab' }}

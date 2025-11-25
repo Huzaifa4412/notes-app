@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 import { useNotes } from '@/app/provider/notes-provider'
 
+
 const Sidebar = () => {
 
 
@@ -16,6 +17,7 @@ const Sidebar = () => {
     const { addNotes } = notes;
     const [show, setShow] = useState(false)
     const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899']
+
 
     return (
         <>
