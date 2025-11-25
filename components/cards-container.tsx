@@ -29,7 +29,7 @@ const CardContainer = () => {
                     id={item.id}
                     text={item.text}
                     color={item.color}
-                    ref={containerRef}
+                    containerRef={containerRef}
                 />
             ))}
         </div>
