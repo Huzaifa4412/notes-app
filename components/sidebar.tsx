@@ -37,7 +37,7 @@ const Sidebar = () => {
                             className="rounded-lg w-[50px] flex flex-col gap-6 items-center justify-center py-5 border border-gray-200 overflow-hidden"
                         >
                             {colors.map((color, index) => (
-                                <div onClick={() => addNotes({ heading: "Heading...", note: "Take a note..." }, color)} key={index} className="size-7 rounded-full" style={{ backgroundColor: color }} />
+                                <div onClick={() => addNotes({ heading: "Heading...", note: "Take a note..." }, color)} key={index} className="cursor-pointer size-7 rounded-full" style={{ backgroundColor: color }} />
                             ))}
                         </motion.div>
                     )}

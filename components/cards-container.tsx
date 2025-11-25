@@ -1,11 +1,12 @@
 'use client'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import Card from './card'
 import { useNotes } from '@/app/provider/notes-provider'
 import { Note } from '@/types/notes'
 
 const CardContainer = () => {
+    const containerRef = useRef<HTMLDivElement>(null)
     const my_notes = useNotes()
     if (!my_notes) {
         throw new Error('Component must be wrapped within NotesProvider');
@@ -21,13 +22,14 @@ const CardContainer = () => {
     }
 
     return (
-        <div className="w-full h-full mx-auto flex flex-wrap gap-6 justify-center mt-12">
+        <div ref={containerRef} className="p-20 w-screen h-screen overflow-hidden relative bg-gray-100 flex flex-wrap gap-6 justify-center">
             {notes.map((item: Note) => (
                 <Card
                     key={item.id}
                     id={item.id}
                     text={item.text}
                     color={item.color}
+                    ref={containerRef}
                 />
             ))}
         </div>

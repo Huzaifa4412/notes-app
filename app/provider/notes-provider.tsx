@@ -34,6 +34,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     }
 
     const deletedNotes = (id: string) => {
+        console.log(id);
         setNotes((prev) => prev.filter((note) => note.id !== id))
     }
     const value = {

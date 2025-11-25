@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { ScrollArea } from "./ui/scroll-area"
 import { useNotes } from "@/app/provider/notes-provider"
-
+import { motion } from "motion/react"
 interface CardProps {
     color: string
     id: string
@@ -11,9 +11,10 @@ interface CardProps {
         heading: string
         note: string
     }
+    ref: React.RefObject<HTMLDivElement>
 }
 
-const Card: React.FC<CardProps> = ({ color, id, text }) => {
+const Card: React.FC<CardProps> = ({ color, id, text, ref }) => {
     const notesContext = useNotes()
     if (!notesContext) {
         throw new Error("Component must be wrapped within NotesProvider")
@@ -24,7 +25,11 @@ const Card: React.FC<CardProps> = ({ color, id, text }) => {
     const [note, setNote] = useState(text.note)
 
     return (
-        <div className="card w-[280px] h-[200px] relative rounded-2xl shadow-2xl bg-zinc-100 overflow-hidden">
+        <motion.div drag dragConstraints={ref} dragElastic={0.12}
+            dragMomentum={true}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            whileDrag={{ scale: 1.05, zIndex: 10, cursor: 'grab' }}
+            className="card w-[280px] h-[200px] relative rounded-2xl shadow-2xl bg-zinc-100 overflow-hidden">
             {/* Colored Strip */}
             <div
                 className="strip w-5 h-20 absolute top-0 left-0 -translate-y-[30%] rotate-45 translate-x-[150%] origin-top-left"
@@ -33,10 +38,13 @@ const Card: React.FC<CardProps> = ({ color, id, text }) => {
 
             {/* Delete Button */}
             <button
-                className="delete w-8 h-8 rounded-full bg-red-500 absolute top-3 right-3 flex items-center justify-center text-white hover:scale-105 transition-transform"
-                onClick={() => deletedNotes(id)}
+                className="delete size-3 rounded-full bg-red-500 absolute top-3 right-3 flex items-center text-2xl justify-center text-white cursor-pointer"
+                onClick={() => {
+                    deletedNotes(id)
+                    console.log(id);
+                }}
             >
-                ×
+
             </button>
 
             {/* Heading */}
@@ -70,7 +78,7 @@ const Card: React.FC<CardProps> = ({ color, id, text }) => {
                     </div>
                 </ScrollArea>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
